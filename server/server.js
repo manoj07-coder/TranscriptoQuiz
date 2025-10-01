@@ -13,6 +13,11 @@ const server = http.createServer(app);
 app.use(cors());
 app.use(express.json());
 
+const io = new Server(server, {
+  cors: { origin: "*" },
+});
+app.set("io", io);
+
 const MONGO_URI =
   process.env.MONGO_URI || "mongodb://localhost:27017/transcriptoquiz";
 
