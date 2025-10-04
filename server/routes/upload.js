@@ -33,6 +33,9 @@ router.post("/", upload.single("video"), async (req, res) => {
       path: file.path,
       status: "Uploaded",
     });
+
+    const io = req.app.get("io");
+    io.emit(`video:${videoDoc._id}:status`, { status: "Uploaded" });
   } catch (error) {
     console.error("Upload error:", error);
     res.status(500).json({ error: error.message });
